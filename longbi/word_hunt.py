@@ -32,8 +32,6 @@ class WordHunt:
             self.trie = pickle.load(f)
 
     def solve(self, grid: List[List[str]]) -> List[str]:
-        if len(grid) == 0:
-            return None
         rows, cols = len(grid), len(grid[0])
         visited = [[False for _ in range(len(grid))] for _ in range(len(grid[0]))]
         words = set()
@@ -41,7 +39,11 @@ class WordHunt:
         def dfs(row, col, path, node):
             visited[row][col] = True
             path += grid[row][col]
-            node = node.get_child(grid[row][col])
+            node = (
+                node.get_child(grid[row][col])
+                if node.has_child(grid[row][col])
+                else None
+            )
 
             if node:
                 if node.is_word:
