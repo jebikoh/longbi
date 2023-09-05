@@ -11,6 +11,8 @@ python = "^3.10"
 pillow = "^10.0.0"
 pytesseract = "^0.3.10"
 numpy = "^1.25.2"
+tesserocr = "^2.6.1"
+opencv-python = "^4.8.0.76"
 
 
 [build-system]

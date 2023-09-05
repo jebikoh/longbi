@@ -35,6 +35,32 @@ files = [
 ]
 
 [[package]]
+name = "opencv-python"
+version = "4.8.0.76"
+description = "Wrapper package for OpenCV python bindings."
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "opencv-python-4.8.0.76.tar.gz", hash = "sha256:56d84c43ce800938b9b1ec74b33942b2edbcef3f70c2754eb9bfe5dff1ee3ace"},
+    {file = "opencv_python-4.8.0.76-cp37-abi3-macosx_10_16_x86_64.whl", hash = "sha256:67bce4b9aad307c98a9a07c6afb7de3a4e823c1f4991d6d8e88e229e7dfeee59"},
+    {file = "opencv_python-4.8.0.76-cp37-abi3-macosx_11_0_arm64.whl", hash = "sha256:48eb3121d809a873086d6677565e3ac963e6946110d13cd115533fa70e2aa2eb"},
+    {file = "opencv_python-4.8.0.76-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:93871871b1c9d6b125cddd45b0638a2fa01ee9fd37f5e428823f750e404f2f15"},
+    {file = "opencv_python-4.8.0.76-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9bcb4944211acf13742dbfd9d3a11dc4e36353ffa1746f2c7dcd6a01c32d1376"},
+    {file = "opencv_python-4.8.0.76-cp37-abi3-win32.whl", hash = "sha256:b2349dc9f97ed6c9ba163d0a7a24bcef9695a3e216cd143e92f1b9659c5d9a49"},
+    {file = "opencv_python-4.8.0.76-cp37-abi3-win_amd64.whl", hash = "sha256:ba32cfa75a806abd68249699d34420737d27b5678553387fc5768747a6492147"},
+]
+
+[package.dependencies]
+numpy = [
+    {version = ">=1.21.2", markers = "python_version >= \"3.10\""},
+    {version = ">=1.21.4", markers = "python_version >= \"3.10\" and platform_system == \"Darwin\""},
+    {version = ">=1.23.5", markers = "python_version >= \"3.11\""},
+    {version = ">=1.19.3", markers = "python_version >= \"3.6\" and platform_system == \"Linux\" and platform_machine == \"aarch64\" or python_version >= \"3.9\""},
+    {version = ">=1.17.0", markers = "python_version >= \"3.7\""},
+    {version = ">=1.17.3", markers = "python_version >= \"3.8\""},
+]
+
+[[package]]
 name = "packaging"
 version = "23.1"
 description = "Core utilities for Python packages"
@@ -129,7 +155,33 @@ files = [
 packaging = ">=21.3"
 Pillow = ">=8.0.0"
 
+[[package]]
+name = "tesserocr"
+version = "2.6.1"
+description = "A simple, Pillow-friendly, Python wrapper around tesseract-ocr API using Cython"
+optional = false
+python-versions = "*"
+files = [
+    {file = "tesserocr-2.6.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:acfeb3e4f937da25376dc1402454f78705af7aa6c595ecf65affff6fed528520"},
+    {file = "tesserocr-2.6.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:33f490a7232e4c7860f337d24c1289e5fd4eff0c67729f815865ec783cc25226"},
+    {file = "tesserocr-2.6.1-cp310-cp310-manylinux_2_28_x86_64.whl", hash = "sha256:b6a2767d7b4d1fa1903f9585aa8807031e33d33f1615376fed51ce0094730d5f"},
+    {file = "tesserocr-2.6.1-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:bbf3fbd3d9684c03dc19fad839c8ebeab6083f4df8c778d6dcde4a6d15f2e473"},
+    {file = "tesserocr-2.6.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:adba0adbc045c2aeb1bbf1bceacd6d87d2eff74fb5ef44e243edeca3ad5880ae"},
+    {file = "tesserocr-2.6.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:9b1aeec446b7e3d74904bb0e6ac6cd8e00fd714849c0f201b2735afed7c01e8e"},
+    {file = "tesserocr-2.6.1-cp311-cp311-manylinux_2_28_x86_64.whl", hash = "sha256:9b817cc45f98fa141d122de65c796daac7416d7f1f13816c32c219239f4b0307"},
+    {file = "tesserocr-2.6.1-cp311-cp311-musllinux_1_1_x86_64.whl", hash = "sha256:dd4da14063ddbfa986476b9ed3dccd8d5b0d112656d326c82dc3049065f16434"},
+    {file = "tesserocr-2.6.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:17d5ba23d45abae3c16f86b7ec3de9f00aa26be64e1c73dfb74459b6851c570b"},
+    {file = "tesserocr-2.6.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:5613bd22c2abd38b3b29a64cf363c880d7657a1bad7dc5f60244fe4e40cb90e9"},
+    {file = "tesserocr-2.6.1-cp38-cp38-manylinux_2_28_x86_64.whl", hash = "sha256:a58ec8d22de8e7cb2b908b20388eec74a58b64d18347a2937570b98da0e02d3c"},
+    {file = "tesserocr-2.6.1-cp38-cp38-musllinux_1_1_x86_64.whl", hash = "sha256:0a83a681385196e7fe56f09cd8b02a0ef3a4bccf81a8d98e1959d6b25e7c6c04"},
+    {file = "tesserocr-2.6.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:363d3ff25b4a3f6f1e21170e4e0ed4ea6827b08e4ddbe53790f356ed94a9b480"},
+    {file = "tesserocr-2.6.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:3f269295fa606bb1a82e993c81f209753f4d7e429585d2530788b582de38ed20"},
+    {file = "tesserocr-2.6.1-cp39-cp39-manylinux_2_28_x86_64.whl", hash = "sha256:be4678dcfed7ba79ef01fec675363512d9a738b581a5a7384993a82925b7cbfe"},
+    {file = "tesserocr-2.6.1-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:050e54a4c9d5e6cad6d49735edc36cdd678f887d95d399d4b5dd6385e4668fdc"},
+    {file = "tesserocr-2.6.1.tar.gz", hash = "sha256:a73f3672eb6043d89f312ebee3499c0623ac5c8a9e12ab98741593fa7a5934f6"},
+]
+
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "91f190890c5d26c6a88b25f4efca210efcb784269a36c8a720e10bc57855aa04"
+content-hash = "1ceadf81a238aeb5b57947de68aeb7f4c9c8358059b3bd4e919aa8e2a5fa5de5"

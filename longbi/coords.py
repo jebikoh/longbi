@@ -1,5 +1,6 @@
 # Methods here are used for initial calculation
 # Coordinates are stored as constants for performance
+from typing import Dict, Tuple, Any
 
 # Reference Values
 GRID_SIZE = 4
@@ -12,7 +13,7 @@ TOP_LEFT_Y = 1245
 
 # Constants
 GRID_COORDS = (190, 1245, 995, 2050)
-GRID_CELLS = {
+GRID_CELLS: Dict[Tuple[int, int], Any] = {
     (0, 0): (0, 0, 160, 160),
     (0, 1): (215, 0, 375, 160),
     (0, 2): (430, 0, 590, 160),
