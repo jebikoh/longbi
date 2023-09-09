@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Tuple
 from trie import Trie
 import pickle
 import os
@@ -31,14 +31,17 @@ class WordHunt:
         with open(path, "rb") as f:
             self.trie = pickle.load(f)
 
-    def solve(self, grid: List[List[str]]) -> List[str]:
+    from typing import List, Tuple
+
+    def solve(self, grid: List[List[str]]) -> List[Tuple[str, List[Tuple[int, int]]]]:
         rows, cols = len(grid), len(grid[0])
         visited = [[False for _ in range(len(grid))] for _ in range(len(grid[0]))]
         words = set()
 
-        def dfs(row, col, path, node):
+        def dfs(row: int, col: int, path: str, node, coords: List[Tuple[int, int]]):
             visited[row][col] = True
             path += grid[row][col]
+            coords.append((row, col))
             node = (
                 node.get_child(grid[row][col])
                 if node.has_child(grid[row][col])
@@ -47,7 +50,9 @@ class WordHunt:
 
             if node:
                 if node.is_word:
-                    words.add(path)
+                    words.add(
+                        (path, tuple(coords))
+                    )  # Make sure to copy the list, not reference it
                 for drow, dcol in DIRECTIONS:
                     nrow, ncol = row + drow, col + dcol
                     if (
@@ -55,12 +60,13 @@ class WordHunt:
                         and 0 <= ncol < cols
                         and not visited[nrow][ncol]
                     ):
-                        dfs(nrow, ncol, path, node)
+                        dfs(nrow, ncol, path, node, coords)
 
             visited[row][col] = False
+            coords.pop()  # Backtrack
 
         for row in range(rows):
             for col in range(cols):
-                dfs(row, col, "", self.trie.root)
+                dfs(row, col, "", self.trie.root, [])
 
         return list(words)
