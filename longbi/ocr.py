@@ -1,7 +1,6 @@
 from PIL import Image
 from coords import GRID_COORDS, GRID_CELLS, GRID_SIZE
 from typing import List
-import pytesseract
 import cv2
 from tesserocr import PyTessBaseAPI
 
