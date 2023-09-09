@@ -17,6 +17,18 @@ TrieNode* create_node() {
   return node;
 }
 
+void free_trie_node(TrieNode* root) {
+  if (root == NULL) return;
+
+  for (int i = 0; i < 26; ++i) {
+    if (root->children[i] != NULL) {
+      freeTrie(root->children[i]);
+    }
+  }
+
+  free(root);
+}
+
 int index_of(char c) { return c - 'A'; }
 
 bool has_child(TrieNode* node, char c) {
@@ -40,6 +52,11 @@ Trie* create_trie() {
   Trie* trie = malloc(sizeof(Trie));
   trie->root = create_node();
   return trie;
+}
+
+void free_trie(Trie* trie) {
+  free_trie_node(trie->root);
+  free(trie);
 }
 
 void insert(Trie* trie, const char* word) {
@@ -73,6 +90,8 @@ int main() {
   printf("Search APP: %d\n", search(trie, "APP"));
   printf("Search APPLE: %d\n", search(trie, "APPLE"));
   printf("Search APPL: %d\n", search(trie, "APPL"));
+
+  free_trie(trie);
 
   return 0;
 }
