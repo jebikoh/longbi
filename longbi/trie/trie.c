@@ -63,3 +63,16 @@ bool search(Trie* trie, const char* word) {
   }
   return node->is_word;
 }
+
+int main() {
+  Trie* trie = create_trie();
+
+  insert(trie, "APPLE");
+  insert(trie, "APP");
+
+  printf("Search APP: %d\n", search(trie, "APP"));
+  printf("Search APPLE: %d\n", search(trie, "APPLE"));
+  printf("Search APPL: %d\n", search(trie, "APPL"));
+
+  return 0;
+}
