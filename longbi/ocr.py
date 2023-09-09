@@ -35,6 +35,4 @@ def extract_grid(path: str) -> List[List[str]]:
                 )
                 text = api.GetUTF8Text()
                 grid[row][col] = "".join(char for char in text if char.isalpha())
-        # text = pytesseract.image_to_string(cell, config="--psm 10")
-        # grid[row][col] = "".join(char for char in text if char.isalpha())
     return grid

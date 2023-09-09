@@ -50,9 +50,7 @@ class WordHunt:
 
             if node:
                 if node.is_word:
-                    words.add(
-                        (path, tuple(coords))
-                    )  # Make sure to copy the list, not reference it
+                    words.add((path, tuple(coords)))
                 for drow, dcol in DIRECTIONS:
                     nrow, ncol = row + drow, col + dcol
                     if (
@@ -63,7 +61,7 @@ class WordHunt:
                         dfs(nrow, ncol, path, node, coords)
 
             visited[row][col] = False
-            coords.pop()  # Backtrack
+            coords.pop()
 
         for row in range(rows):
             for col in range(cols):
