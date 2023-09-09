@@ -1,5 +1,5 @@
 from typing import List, Optional, Tuple
-from trie import Trie
+from longbi.trie import Trie
 import pickle
 import os
 
