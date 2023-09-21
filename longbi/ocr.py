@@ -7,6 +7,9 @@ from tesserocr import PyTessBaseAPI
 CHAR_WHITELIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 TESS_PATH = "/usr/share/tesseract-ocr/4.00/tessdata"
 
+# MacOS
+# TESS_PATH = "/usr/local/Cellar/tesseract/{version}/share/tessdata"
+
 
 def extract_grid(path: str) -> List[List[str]]:
     image = cv2.imread(path)
