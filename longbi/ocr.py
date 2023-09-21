@@ -2,13 +2,11 @@ from PIL import Image
 from coords import GRID_COORDS, GRID_CELLS, GRID_SIZE
 from typing import List
 import cv2
-from tesserocr import PyTessBaseAPI
+import easyocr
 
-CHAR_WHITELIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-TESS_PATH = "/usr/share/tesseract-ocr/4.00/tessdata"
 
-# MacOS
-# TESS_PATH = "/usr/local/Cellar/tesseract/{version}/share/tessdata"
+# Set to True if GPU is available
+USE_GPU = False
 
 
 def extract_grid(path: str) -> List[List[str]]:
@@ -21,20 +19,21 @@ def extract_grid(path: str) -> List[List[str]]:
     _, thresholded = cv2.threshold(greyscale, 128, 255, cv2.THRESH_BINARY)
 
     grid = [["" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-    with PyTessBaseAPI(path=TESS_PATH) as api:
-        for row in range(GRID_SIZE):
-            for col in range(GRID_SIZE):
-                x1, y1, x2, y2 = GRID_CELLS[(row, col)]
-                cell = thresholded[y1:y2, x1:x2]
-                api.SetVariable("tessedit_char_whitelist", CHAR_WHITELIST)
-                api.SetPageSegMode(10)
-                api.SetImageBytes(
-                    cell.tobytes(),
-                    cell.shape[1],
-                    cell.shape[0],
-                    1,
-                    cell.shape[1],
-                )
-                text = api.GetUTF8Text()
-                grid[row][col] = "".join(char for char in text if char.isalpha())
+
+    reader = easyocr.Reader(lang_list=["en"], gpu=USE_GPU)
+
+    for row in range(GRID_SIZE):
+        for col in range(GRID_SIZE):
+            x1, y1, x2, y2 = GRID_CELLS[(row, col)]
+            cell = thresholded[y1:y2, x1:x2]
+
+            # Convert the cell to an image format that EasyOCR can accept
+            pil_img = Image.fromarray(cell)
+            text_list = reader.readtext(pil_img, detail=0)
+
+            # EasyOCR returns a list, we concatenate it to get the final string
+            # and then filter it using the whitelist
+            text = "".join(text_list)
+            grid[row][col] = "".join(char for char in text if char.isalpha())
+
     return grid
