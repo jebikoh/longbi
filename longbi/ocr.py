@@ -2,10 +2,10 @@ from PIL import Image
 from coords import GRID_COORDS, GRID_CELLS, GRID_SIZE
 from typing import List
 import cv2
-from tesserocr import PyTessBaseAPI
+import pytesseract
 
 CHAR_WHITELIST = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-TESS_PATH = "/usr/share/tesseract-ocr/4.00/tessdata"
+# TESS_PATH = "/usr/share/tesseract-ocr/4.00/tessdata"
 
 # MacOS
 # TESS_PATH = "/usr/local/Cellar/tesseract/{version}/share/tessdata"
@@ -20,21 +20,16 @@ def extract_grid(path: str) -> List[List[str]]:
     greyscale = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
     _, thresholded = cv2.threshold(greyscale, 128, 255, cv2.THRESH_BINARY)
 
+    config = f"--psm 10 -c tessedit_char_whitelist={CHAR_WHITELIST}"
+
     grid = [["" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-    with PyTessBaseAPI(path=TESS_PATH) as api:
-        for row in range(GRID_SIZE):
-            for col in range(GRID_SIZE):
-                x1, y1, x2, y2 = GRID_CELLS[(row, col)]
-                cell = thresholded[y1:y2, x1:x2]
-                api.SetVariable("tessedit_char_whitelist", CHAR_WHITELIST)
-                api.SetPageSegMode(10)
-                api.SetImageBytes(
-                    cell.tobytes(),
-                    cell.shape[1],
-                    cell.shape[0],
-                    1,
-                    cell.shape[1],
-                )
-                text = api.GetUTF8Text()
-                grid[row][col] = "".join(char for char in text if char.isalpha())
+
+    for row in range(GRID_SIZE):
+        for col in range(GRID_SIZE):
+            x1, y1, x2, y2 = GRID_CELLS[(row, col)]
+            cell = thresholded[y1:y2, x1:x2]
+            pil_image = Image.fromarray(cell)
+            text = pytesseract.image_to_string(pil_image, config=config)
+            grid[row][col] = "".join(char for char in text if char.isalpha())
+
     return grid
