@@ -21,7 +21,7 @@ def extract_grid(path: str) -> List[List[str]]:
     _, thresholded = cv2.threshold(greyscale, 128, 255, cv2.THRESH_BINARY)
 
     grid = [["" for _ in range(GRID_SIZE)] for _ in range(GRID_SIZE)]
-    with PyTessBaseAPI(path="/usr/share/tesseract-ocr/4.00/tessdata") as api:
+    with PyTessBaseAPI(path=TESS_PATH) as api:
         for row in range(GRID_SIZE):
             for col in range(GRID_SIZE):
                 x1, y1, x2, y2 = GRID_CELLS[(row, col)]
